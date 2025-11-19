@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amantes de Café | Cafés Pelo Brasil</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJzL3jM6zI4b6k1+k3S9N/Wz7j1e4Nl7jN9F6H7wTj3K5/Tz4+CjNl0L5dEw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+    </style>
+</head>
+<body class="font-sans">
+
+    <header class="bg-white border-b border-gray-200">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto p-4 md:p-6 relative">
+            
+            <div class="logo"> 
+                <button 
+                    id="offcanvas-trigger-btn"
+                    aria-label="Menu de Usuário"
+                    data-bs-toggle="offcanvas" 
+                    data-bs-target="#user-sidebar" 
+                    aria-controls="user-sidebar"
+                    class="bg-black hover:bg-[#6F4E37] text-white p-2 rounded text-2xl border-none cursor-pointer transition duration-200"
+                >
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="site-title absolute inset-0 flex justify-center items-center pointer-events-none"> 
+                <h1 class="text-black lg:block pointer-events-auto text-xl md:text-2xl font-bold tracking-widest text-[#4A2C2A]">
+                    AMANTES DE CAFÉ
+                </h1>
+            </div>
+            
+            <div class="search-and-profile flex items-center gap-2 md:gap-4 ml-auto"> 
+                <button aria-label="Buscar" class="text-2xl hover:text-gray-700">🔍</button>
+                <input type="search" placeholder="Buscar..." class="hidden sm:block">
+                <a href="#" aria-label="Perfil do Usuário" class="text-2xl hover:text-gray-700">👤</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8 text-center">
+        <section class="intro-section my-10 md:my-16">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-[#4A2C2A] mb-2">CAFÉS PELO BRASIL</h2>
+            <p class="text-gray-600 text-base md:text-lg">Venha conhecer os cafés, bistrôs e restaurantes mais bem avaliados do Brasil!</p>
+        </section>
+
+        <section class="near-you-section my-16">
+            <h3 class="text-2xl font-bold mb-8">O QUE TEMOS PERTO DE VOCÊ!</h3>
+            
+            <div class="relative flex items-center justify-center">
+                
+                <button id="prev-button" class="carousel-nav-btn absolute left-0 md:left-4 z-10 rounded-full shadow-lg" aria-label="Anterior">
+                    &lt;
+                </button>
+                
+                <div id="card-slider" class="overflow-x-scroll w-full mx-4 md:mx-10 py-2" style="scroll-behavior: smooth;">
+                    <div class="flex space-x-8 px-2 md:px-4"> 
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Cafeteria Vista Alegre</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Bistrô da Esquina</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Pão na Chapa Gourmet</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Expresso Rápido</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Doce Tentação</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Cantinho do Café</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                        <div class="location-card flex-shrink-0">
+                            <div class="text-center">
+                                <p class="text-gray-500">Grãos Nobres</p>
+                                <div class="image-placeholder">🖼️</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="next-button" class="carousel-nav-btn absolute right-0 md:right-4 z-10 rounded-full shadow-lg" aria-label="Próximo">
+                    &gt;
+                </button>
+            </div>
+        </section>
+        
+        <section class="reviews-section max-w-6xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div class="review-box">
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <p>"O melhor café que já tomei. 10/10!!"</p>
+                <div class="reviewer-info mt-auto flex items-center">
+                    <div class="avatar-placeholder"></div>
+                    <div class="user-details">
+                        <span class="username font-bold">Gabriel_Saturno</span>
+                        <span class="rank text-gray-500 text-sm">Usuário Platinum</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-box">
+                <div class="rating">
+                    <span class="stars text-yellow-500">★★★<span class="text-gray-300">☆☆</span></span>
+                </div>
+                <p>"A recepção foi excelente, porém pecou no valor do pão na chapa, R$30,00 é complicado."</p>
+                <div class="reviewer-info mt-auto flex items-center">
+                    <div class="avatar-placeholder"></div>
+                    <div class="user-details">
+                        <span class="username font-bold">CaféVinicius_54</span>
+                        <span class="rank text-gray-500 text-sm">Usuário Gold</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-box">
+                <div class="rating">
+                    <span class="stars text-yellow-500">★★★<span class="text-gray-300">☆☆</span></span>
+                </div>
+                <p>"A infraestrutura impecável juntamente com a ótima localização da cafeteria... <a href="#" class="text-blue-500 hover:text-blue-700">Ver mais</a>"</p>
+                <div class="reviewer-info mt-auto flex items-center">
+                    <div class="avatar-placeholder"></div>
+                    <div class="user-details">
+                        <span class="username font-bold">BrenoKoffe</span>
+                        <span class="rank text-gray-500 text-sm">Usuário Bronze</span>
+                    </div>
+                </div>
+            </div>
+            </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200">
+        <div class="footer-content max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 p-8 md:p-12">
+            
+            <div class="logo-address">
+                <h3 class="text-xl font-bold mb-4 text-[#4A2C2A]">Logo</h3>
+                <p class="text-sm"><strong>Endereço:</strong><br>Rua Tialek, 269 - Inquisitor do Vale</p>
+                <div class="social-media mt-4">
+                    <a href="#" aria-label="Instagram" class="text-2xl mr-2 hover:text-[#6F4E37] transition">📷</a>
+                    <a href="#" aria-label="Facebook" class="text-2xl mr-2 hover:text-[#6F4E37] transition">📘</a>
+                    <a href="#" aria-label="Twitter" class="text-2xl hover:text-[#6F4E37] transition">🐦</a>
+                </div>
+            </div>
+
+            <div class="footer-links col-span-1 md:col-span-3 grid grid-cols-3 gap-6">
+                <div class="column">
+                    <h4 class="font-bold mb-3">Contate-nos</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#">Link one</a></li>
+                        <li><a href="#">Link two</a></li>
+                        <li><a href="#">Link three</a></li>
+                        <li><a href="#">Link four</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4 class="font-bold mb-3">SAC</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#">Link five</a></li>
+                        <li><a href="#">Link six</a></li>
+                        <li><a href="#">Link seven</a></li>
+                        <li><a href="#">Link eight</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h4 class="font-bold mb-3">Trabalhe Conosco</h4>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#">Link nine</a></li>
+                        <li><a href="#">Link ten</a></li>
+                        <li><a href="#">Link eleven</a></li>
+                        <li><a href="#">Link twelve</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright bg-gray-50 border-t border-gray-200 text-xs text-gray-500 flex flex-col md:flex-row justify-center items-center gap-2 p-3">
+            <p>&copy; 2025 Amante de Cafés. Todos os Direitos Reservados.</p>
+            <span class="hidden md:inline">|</span>
+            <p><a href="#" class="hover:underline">Política de Privacidade</a></p>
+            <span class="hidden md:inline">|</span>
+            <p><a href="#" class="hover:underline">Termos de Serviço</a></p>
+        </div>
+    </footer>
+    
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="user-sidebar" aria-labelledby="user-sidebar-label">
+        <div class="offcanvas-header bg-[#4A2C2A] text-white">
+            <h5 class="offcanvas-title" id="user-sidebar-label">☕ Menu de Usuário</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        </div>
+        <div class="offcanvas-body bg-white text-gray-800">
+            <h6 class="text-lg font-bold mb-3 border-b pb-2 text-[#6F4E37]">Sua Área</h6>
+            
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">👤</span> Perfil
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">⭐️</span> Favoritos
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">📍</span> Lugares Visitados
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">💬</span> Meus Comentários
+                    </a>
+                </li>
+            </ul>
+
+            <hr class="my-4">
+
+            <h6 class="text-lg font-bold mb-3 border-b pb-2 text-[#6F4E37]">Suporte</h6>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">📞</span> SAC / Ajuda
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="d-block py-2 text-decoration-none text-black hover:text-[#4A2C2A] transition duration-150">
+                        <span class="me-3">⚙️</span> Configurações
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mt-5">
+                <button type="button" class="btn btn-danger w-100">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // Código JavaScript para funcionalidade do Carrossel
+        document.addEventListener('DOMContentLoaded', () => {
+            const slider = document.getElementById('card-slider');
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            
+            // Largura ajustada de um card + espaçamento para um melhor ajuste
+            const scrollDistance = 360; 
+            
+            // Função para rolar o carrossel
+            const scrollSlider = (direction) => {
+                if (direction === 'next') {
+                    // Rola para a direita
+                    slider.scrollLeft += scrollDistance;
+                } else {
+                    // Rola para a esquerda
+                    slider.scrollLeft -= scrollDistance;
+                }
+            };
+            
+            // Adiciona os event listeners aos botões
+            prevButton.addEventListener('click', () => scrollSlider('prev'));
+            nextButton.addEventListener('click', () => scrollSlider('next'));
+        });
+    </script>
+
+</body>
+</html>
