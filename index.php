@@ -1154,7 +1154,7 @@
        HEADER
   ════════════════════════════════════════ -->
     <header>
-        <a href="#" class="logo">Café<span>spot</span></a>
+        <a href="#" class="logo">Amantes de <span>Café</span></a>
 
         <!-- Navegação desktop -->
         <nav id="navMenu">
