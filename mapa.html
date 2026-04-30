@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amantes de Café — Mapa Interativo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --cream:#F5F0E8; --espresso:#2C1810; --caramel:#C8873A;
+      --latte:#D4A96A; --foam:#FBF6ED; --bark:#6B3D1E;
+      --muted:#9A8070; --border:rgba(44,24,16,.10); --shadow:rgba(44,24,16,.14);
+    }
+    html, body { height:100%; font-family:'DM Sans',sans-serif; color:var(--espresso); overflow:hidden; }
+
+    /* HEADER */
+    header {
+      background:var(--espresso); height:56px; padding:0 1.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      position:fixed; top:0; left:0; right:0; z-index:500;
+      box-shadow:0 2px 12px rgba(0,0,0,.3);
+    }
+    .logo { font-family:'Playfair Display',serif; font-size:18px; color:var(--latte); text-decoration:none; }
+    .logo span { color:var(--caramel); font-style:italic; }
+    .btn-back { color:rgba(255,255,255,.65); background:none; border:none; font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer; transition:color .2s; text-decoration:none; }
+    .btn-back:hover { color:var(--latte); }
+
+    /* BARRA DE BUSCA/FILTRO */
+    .map-toolbar {
+      position:fixed; top:56px; left:0; right:0; z-index:400;
+      background:#fff; border-bottom:1px solid var(--border);
+      padding:.7rem 1.5rem; display:flex; gap:.7rem; align-items:center;
+      flex-wrap:wrap; box-shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    .toolbar-search {
+      display:flex; align-items:center; gap:6px;
+      background:var(--foam); border:1px solid var(--border);
+      border-radius:24px; padding:6px 14px; flex:1; min-width:160px; max-width:280px;
+    }
+    .toolbar-search input {
+      border:none; background:transparent; outline:none;
+      font-family:'DM Sans',sans-serif; font-size:13px; color:var(--espresso); width:100%;
+    }
+    .toolbar-search input::placeholder { color:var(--muted); }
+
+    .filter-btn {
+      padding:7px 14px; border-radius:20px; font-size:12px;
+      border:1px solid var(--border); background:var(--foam);
+      color:var(--muted); cursor:pointer; font-family:'DM Sans',sans-serif;
+      transition:all .2s; white-space:nowrap;
+    }
+    .filter-btn.active { background:var(--caramel); color:#fff; border-color:var(--caramel); }
+    .filter-btn:hover:not(.active) { background:var(--cream); }
+
+    .btn-locate {
+      background:var(--espresso); color:var(--latte);
+      border:none; padding:7px 14px; border-radius:20px;
+      font-size:12px; cursor:pointer; font-family:'DM Sans',sans-serif;
+      transition:background .2s; white-space:nowrap; margin-left:auto;
+    }
+    .btn-locate:hover { background:var(--bark); }
+
+    /* MAPA */
+    #mapa {
+      position:fixed;
+      top: 110px; /* header + toolbar */
+      left:0; right:0; bottom:0;
+      z-index:1;
+    }
+
+    /* PAINEL LATERAL (lista de cafés) */
+    .side-panel {
+      position:fixed; top:110px; right:0; bottom:0;
+      width:320px; z-index:200;
+      background:#fff; border-left:1px solid var(--border);
+      display:flex; flex-direction:column;
+      transition:transform .3s ease;
+      box-shadow:-4px 0 20px rgba(0,0,0,.08);
+    }
+    .side-panel.hidden { transform:translateX(320px); }
+
+    .panel-header {
+      padding:1rem 1.2rem; border-bottom:1px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .panel-title { font-family:'Playfair Display',serif; font-size:.95rem; }
+    .panel-count { font-size:11px; color:var(--muted); }
+    .btn-toggle-panel {
+      background:none; border:none; cursor:pointer;
+      color:var(--muted); font-size:18px; line-height:1;
+    }
+
+    .panel-list { overflow-y:auto; flex:1; }
+
+    .list-item {
+      display:flex; gap:10px; padding:.9rem 1.2rem;
+      border-bottom:1px solid var(--border); cursor:pointer;
+      transition:background .15s;
+    }
+    .list-item:hover { background:var(--foam); }
+    .list-item.selected { background:rgba(200,135,58,.07); border-left:3px solid var(--caramel); }
+
+    .item-emoji {
+      width:42px; height:42px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; flex-shrink:0;
+    }
+    .item-body { flex:1; min-width:0; }
+    .item-nome { font-weight:500; font-size:13px; color:var(--espresso); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .item-tipo { font-size:11px; color:var(--muted); margin:.1rem 0 .3rem; }
+    .item-meta { display:flex; gap:8px; align-items:center; }
+    .item-stars { color:var(--caramel); font-size:11px; }
+    .item-dist  { font-size:11px; color:var(--muted); }
+    .badge-open  { font-size:10px; padding:2px 7px; border-radius:8px; background:rgba(45,122,79,.12); color:#2D7A4F; margin-left:auto; }
+    .badge-closed{ font-size:10px; padding:2px 7px; border-radius:8px; background:rgba(180,60,60,.1); color:#B43C3C; margin-left:auto; }
+
+    /* CARD DE DETALHE NO MAPA */
+    .map-popup-card { min-width:220px; font-family:'DM Sans',sans-serif; }
+    .popup-emoji { font-size:2rem; text-align:center; margin-bottom:6px; }
+    .popup-nome  { font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:2px; }
+    .popup-tipo  { font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.6px; }
+    .popup-stars { color:var(--caramel); font-size:12px; margin-bottom:4px; }
+    .popup-info  { font-size:12px; color:var(--muted); margin-bottom:8px; }
+    .popup-btn {
+      display:block; text-align:center; background:var(--caramel); color:#fff;
+      text-decoration:none; padding:8px; border-radius:8px;
+      font-size:12px; font-family:'DM Sans',sans-serif; font-weight:500;
+      transition:background .2s;
+    }
+    .popup-btn:hover { background:var(--bark); }
+
+    /* Botão toggle do painel (mobile) */
+    .btn-show-panel {
+      position:fixed; bottom:1.5rem; right:1.5rem; z-index:300;
+      background:var(--espresso); color:var(--latte);
+      border:none; padding:12px 20px; border-radius:28px;
+      font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+      cursor:pointer; box-shadow:0 4px 20px rgba(44,24,16,.35);
+      display:none; transition:all .2s;
+    }
+    .btn-show-panel:hover { background:var(--bark); transform:scale(1.03); }
+
+    /* Contagem no mapa */
+    .map-badge {
+      position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%);
+      z-index:200; background:var(--espresso); color:var(--latte);
+      padding:8px 18px; border-radius:24px; font-size:12px;
+      box-shadow:0 4px 16px rgba(44,24,16,.3); pointer-events:none;
+    }
+
+    @media(max-width:700px){
+      .side-panel { width:100%; top:auto; height:55vh; box-shadow:0 -4px 20px rgba(0,0,0,.15); border-left:none; border-top:1px solid var(--border); }
+      .side-panel.hidden { transform:translateY(100%); }
+      #mapa { right:0; bottom:45vh; }
+      .btn-show-panel { display:flex; }
+      .map-toolbar { flex-wrap:nowrap; overflow-x:auto; padding:.6rem 1rem; gap:.5rem; }
+      .filter-btn   { flex-shrink:0; }
+      .btn-locate   { flex-shrink:0; margin-left:.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="cafespot.html" class="logo">Café<span>spot</span></a>
+  <a href="cafespot.html" class="btn-back">← Início</a>
+</header>
+
+<!-- TOOLBAR -->
+<div class="map-toolbar">
+  <div class="toolbar-search">
+    <span>🔍</span>
+    <input type="text" id="mapSearch" placeholder="Buscar café ou bairro..." oninput="filtrarMapa()"/>
+  </div>
+  <button class="filter-btn active" data-f="todos"   onclick="setFiltro(this)">Todos</button>
+  <button class="filter-btn"        data-f="cafe"    onclick="setFiltro(this)">☕ Café</button>
+  <button class="filter-btn"        data-f="doceria" onclick="setFiltro(this)">🍰 Doceria</button>
+  <button class="filter-btn"        data-f="bistro"  onclick="setFiltro(this)">🥐 Bistrô</button>
+  <button class="filter-btn"        data-f="gelato"  onclick="setFiltro(this)">🍨 Gelato</button>
+  <button class="filter-btn"        data-f="aberto"  onclick="setFiltro(this)">🟢 Aberto</button>
+  <button class="btn-locate" onclick="localizarUsuario()">📍 Minha localização</button>
+</div>
+
+<!-- MAPA -->
+<div id="mapa"></div>
+
+<!-- PAINEL LATERAL -->
+<div class="side-panel" id="sidePanel">
+  <div class="panel-header">
+    <div>
+      <div class="panel-title">Cafés encontrados</div>
+      <div class="panel-count" id="panelCount">6 locais</div>
+    </div>
+    <button class="btn-toggle-panel" onclick="togglePanel()" title="Fechar painel">×</button>
+  </div>
+  <div class="panel-list" id="panelList"></div>
+</div>
+
+<!-- Botão mostrar lista (mobile) -->
+<button class="btn-show-panel" id="btnShowPanel" onclick="togglePanel()">
+  ☕ Ver lista (6)
+</button>
+
+<!-- Badge de contagem -->
+<div class="map-badge" id="mapBadge">6 cafés no mapa</div>
+
+<script src="dados.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  /* ── Inicializa Mapa ── */
+  const map = L.map('mapa', {
+    center: [-23.1791, -45.8872],
+    zoom: 14,
+    zoomControl: true,
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+    maxZoom: 19,
+  }).addTo(map);
+
+  /* ── Estado ── */
+  let filtroAtivo = 'todos';
+  let termoBusca  = '';
+  let marcadores  = {};      /* id → marker Leaflet */
+  let itemSelecionado = null;
+
+  /* ── Cria ícone personalizado ── */
+  function criarIcone(cafe, selecionado = false) {
+    const size   = selecionado ? 44 : 36;
+    const border = selecionado ? '3px solid var(--espresso)' : '2px solid white';
+    const shadow = selecionado ? '0 4px 14px rgba(44,24,16,.5)' : '0 2px 8px rgba(0,0,0,.25)';
+    return L.divIcon({
+      html: `<div style="
+        background:${cafe.aberto ? '#C8873A' : '#9A8070'};
+        width:${size}px;height:${size}px;
+        border-radius:50%;
+        display:flex;align-items:center;justify-content:center;
+        font-size:${selecionado?'20px':'16px'};
+        border:${border};
+        box-shadow:${shadow};
+        transition:all .2s;
+      ">${cafe.emoji}</div>`,
+      className: '',
+      iconSize:   [size, size],
+      iconAnchor: [size/2, size/2],
+    });
+  }
+
+  /* ── Popup HTML ── */
+  function popupHTML(c) {
+    return `
+      <div class="map-popup-card">
+        <div class="popup-emoji">${c.emoji}</div>
+        <div class="popup-nome">${c.nome}</div>
+        <div class="popup-tipo">${c.tipo}</div>
+        <div class="popup-stars">${renderStars(c.stars)} ${c.rating}</div>
+        <div class="popup-info">📍 ${c.bairro} · ${c.distancia}<br>🕐 ${c.horario}</div>
+        <a class="popup-btn" href="cafe.html?id=${c.id}">Ver detalhes →</a>
+      </div>
+    `;
+  }
+
+  /* ── Adiciona marcadores ── */
+  function addMarcadores(lista) {
+    /* Remove anteriores */
+    Object.values(marcadores).forEach(m => map.removeLayer(m));
+    marcadores = {};
+
+    lista.forEach(c => {
+      const m = L.marker([c.lat, c.lng], { icon: criarIcone(c) })
+        .addTo(map)
+        .bindPopup(popupHTML(c), { maxWidth: 260 });
+
+      m.on('click', () => selecionarCafe(c.id));
+      marcadores[c.id] = m;
+    });
+  }
+
+  /* ── Renderiza lista lateral ── */
+  function renderizarLista(lista) {
+    document.getElementById('panelList').innerHTML = lista.map(c => `
+      <div class="list-item ${itemSelecionado===c.id?'selected':''}" id="item-${c.id}" onclick="selecionarCafe(${c.id})">
+        <div class="item-emoji" style="background:${c.bgColor}">${c.emoji}</div>
+        <div class="item-body">
+          <div class="item-nome">${c.nome}</div>
+          <div class="item-tipo">${c.tipo} · ${c.bairro}</div>
+          <div class="item-meta">
+            <span class="item-stars">${renderStars(c.stars)}</span>
+            <span class="item-dist">${c.rating} · ${c.distancia}</span>
+            <span class="${c.aberto?'badge-open':'badge-closed'}">${c.aberto?'Aberto':'Fechado'}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    const n = lista.length;
+    document.getElementById('panelCount').textContent = n + ' local' + (n !== 1 ? 'is' : '');
+    document.getElementById('mapBadge').textContent   = n + ' café' + (n !== 1 ? 's' : '') + ' no mapa';
+    document.getElementById('btnShowPanel').textContent = `☕ Ver lista (${n})`;
+  }
+
+  /* ── Selecionar café ── */
+  function selecionarCafe(id) {
+    itemSelecionado = id;
+    const c = CAFES.find(x => x.id === id);
+    if (!c) return;
+
+    /* Centraliza mapa */
+    map.flyTo([c.lat, c.lng], 16, { duration: 0.8 });
+
+    /* Abre popup */
+    if (marcadores[id]) {
+      marcadores[id].openPopup();
+      /* Ícone maior */
+      Object.keys(marcadores).forEach(mid => {
+        marcadores[mid].setIcon(criarIcone(CAFES.find(x=>x.id===parseInt(mid)), parseInt(mid)===id));
+      });
+    }
+
+    /* Destaca item na lista */
+    document.querySelectorAll('.list-item').forEach(el => el.classList.remove('selected'));
+    const el = document.getElementById('item-' + id);
+    if (el) { el.classList.add('selected'); el.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+  }
+
+  /* ── Filtrar ── */
+  function aplicarFiltros() {
+    let lista = [...CAFES];
+    if (filtroAtivo === 'aberto')      lista = lista.filter(c => c.aberto);
+    else if (filtroAtivo !== 'todos')  lista = lista.filter(c => c.tag === filtroAtivo);
+    if (termoBusca) {
+      const q = termoBusca.toLowerCase();
+      lista = lista.filter(c =>
+        c.nome.toLowerCase().includes(q) ||
+        c.bairro.toLowerCase().includes(q) ||
+        c.tipo.toLowerCase().includes(q)
+      );
+    }
+    addMarcadores(lista);
+    renderizarLista(lista);
+  }
+
+  function setFiltro(el) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    filtroAtivo = el.dataset.f;
+    aplicarFiltros();
+  }
+
+  function filtrarMapa() {
+    termoBusca = document.getElementById('mapSearch').value;
+    aplicarFiltros();
+  }
+
+  /* ── Localização do usuário ── */
+  let userMarker = null;
+  function localizarUsuario() {
+    if (!navigator.geolocation) { alert('Geolocalização não suportada.'); return; }
+    navigator.geolocation.getCurrentPosition(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      map.flyTo([lat, lng], 15, { duration: 1 });
+      if (userMarker) map.removeLayer(userMarker);
+      userMarker = L.marker([lat, lng], {
+        icon: L.divIcon({
+          html:`<div style="background:#2D7A4F;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 0 0 4px rgba(45,122,79,.25)"></div>`,
+          className:'', iconSize:[14,14], iconAnchor:[7,7],
+        })
+      }).addTo(map).bindPopup('Você está aqui').openPopup();
+    }, () => alert('Não foi possível obter sua localização.'));
+  }
+
+  /* ── Painel ── */
+  function togglePanel() {
+    document.getElementById('sidePanel').classList.toggle('hidden');
+  }
+
+  /* ── Inicializa ── */
+  aplicarFiltros();
+
+  /* Ajusta tamanho do mapa ao redimensionar */
+  window.addEventListener('resize', () => map.invalidateSize());
+</script>
+</body>
+</html>
