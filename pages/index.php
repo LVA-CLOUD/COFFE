@@ -13,7 +13,7 @@
         rel="stylesheet" />
 
     <!-- CSS externo -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../assets/css/stylee.css" />
 </head>
 
 <body>
