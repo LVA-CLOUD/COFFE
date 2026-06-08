@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background-color: #fa8e00;
+  align-content: center;
+  text-align: center;
+}
+
+.jornal{
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 280px 1fr;
+}
+
+.jornal .coluna,
+.destaque {
+    padding: 40px;
+}
+
+/* Linhas verticais */
+.coluna:first-child {
+    border-right: 1px solid #d0c8bb;
+}
+
+.destaque {
+    border-right: 1px solid #d0c8bb;
+    background: #241006;
+    color: #f8f1e8;
+}
+
+.coluna h2 {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.coluna p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+}
