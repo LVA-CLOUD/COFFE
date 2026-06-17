@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hero {
+    height: 100vh;/* Faz ele ocupar a tela toda */
+    position: relative; /* Transforma ele numa espécie de mesa, para por coisas em cima */
+    overflow: hidden; /* Esconde o que sai pra fora */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2C1810
+}
+
+.hero .fundo-hero {
+    position: absolute;
+    inset: 0; /* Faz ele ocupar toda a área do hero */
+    pointer-events: none; /* Faz ele não atrapalhar os cliques */
+    /* 
+    background-image: repeating-linear-gradient(
+  [angulo ou direção],
+  [Cor 1] [Início da Cor 1],
+  [Cor 1] [Fim da Cor 1 / Início da Cor 2],
+  [Cor 2] [Fim da Cor 1 / Início da Cor 2],
+  [Cor 2] [Fim da Cor 2]
+);
+ */
+
+ /* Para fazer o fundo com listras */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 28px,
+       rgba(201,149,26,0.04) 28px,
+      rgba(201,149,26,0.04) 29px
+
+    );
+}
+
+.hero .fundo-luz-hero {
+    position: absolute;
+    inset: 0; /* Faz ele ocupar toda a área do hero */
+    pointer-events: none; /* Faz ele não atrapalhar os cliques */
+
+    /* Background para a luz 
+    radial-gradient(ellipse at [posição], [cor inicial], [cor final])
+    */
+    background: radial-gradient(ellipse 40% 80% at 50% 50%, rgba(201,149,26, 0.18), transparent); 
+    /* Luz fundo */
+}
+
+.hero .vinheta-hero {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* Background para a vinheta, começa transparente no centro e escurece nas bordas */
+    background:  radial-gradient(ellipse at center, transparent 40%, rgba(10,4,2,0.65) 100%);
+}
