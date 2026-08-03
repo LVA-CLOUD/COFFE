@@ -787,8 +787,8 @@
         <header role="banner">
             <div class="masthead">
                 <div class="masthead-top" aria-label="Informações da edição">
-                    <span>Edição Nº 47 · Volume III · Fundado em 2025</span>
-                    <span><time datetime="2026-06">Junho, 2026</time> · Vale do Paraíba, São Paulo</span>
+                    <span>Edição Nº 47 · Volume III · Fundado em 2026</span>
+                    <span><time datetime="2026-08">Agosto, 2026</time> · Vale do Paraíba, São Paulo</span>
                 </div>
                 <div class="masthead-title" role="heading" aria-level="1">Café Noir</div>
                 <p class="masthead-sub">O guia definitivo dos cafés e docerias do Vale do Paraíba</p>
@@ -804,7 +804,7 @@
         <div class="page" id="conteudo-principal">
             <!-- SECTION TAG -->
             <div class="section-tag" role="doc-subtitle" style="margin-top:0.6rem">
-                <span> Edição Especial · Vale do Paraíba</span>
+                <span> · Edição Especial · </span>
             </div>
             <!-- HEADLINE -->
             <div class="headline-block">
@@ -1070,88 +1070,7 @@
                                 Inclusivo &amp; Moderno</p>
                         </li>
                     </ul>
-                </section>
-                <!-- SÃO PAULO -->
-                <section aria-labelledby="sao-paulo-titulo" style="margin-top:1.2rem">
-                    <div class="cidade-div">
-                        <h4 id="sao-paulo-titulo"><span>São Paulo</span></h4>
-                    </div>
-                    <ul class="cafe-grid" role="list" aria-label="Cafeterias em São Paulo">
-                        <li class="cafe-item cafe-destaque" aria-labelledby="cafe-octavio-nome">
-                            <div class="cafe-destaque-left">
-                                <p class="cafe-destaque-tag" aria-hidden="true">✦ Destaque Paulista</p>
-                                <h5 id="cafe-octavio-nome" class="cafe-nome">Octavio Coffee Roasters</h5>
-                                <p class="cafe-bairro">Vila Mariana · São Paulo</p>
-                                <p class="cafe-nota" aria-label="Avaliação: 5 estrelas. Excelência em torrefação">★★★★★
-                                    &nbsp;
-                                    Torrefação de Elite</p>
-                            </div>
-                            <div class="cafe-destaque-right">
-                                <p class="cafe-desc">Torrefadora de referência nacional, Octavio escolhe apenas os
-                                    melhores
-                                    grãos do Brasil e do exterior. O espaço combina laboratório, cafeteria e galeria de
-                                    arte —
-                                    cada xícara é apresentada como uma obra. Os roasters são mestres da torra,
-                                    transformando
-                                    microlotes em expressões únicas de sabor. Imperdível: as degustações comparativas de
-                                    sexta
-                                    à noite.</p>
-                                <blockquote class="pull-quote">
-                                    <p>"Octavio não apenas serve café — celebra a profundidade de cada grão."</p>
-                                </blockquote>
-                            </div>
-                        </li>
-                        <li class="cafe-item" aria-labelledby="cafe-estado-cafe-nome">
-                            <h5 id="cafe-estado-cafe-nome" class="cafe-nome">Estado do Café</h5>
-                            <p class="cafe-bairro">Consolação · São Paulo</p>
-                            <p class="cafe-desc">Espaço dedicado à educação cafeeira: cursos de cupping, workshops sobre
-                                métodos de extração e encontros com produtores diretos. O ambiente minimalista não é por
-                                acaso
-                                — tudo aqui serve para destacar o protagonista: o café. Menu reduzido, impacto máximo.
-                            </p>
-                            <p class="cafe-nota" aria-label="Avaliação: 5 estrelas. Educativo e especializado">★★★★★
-                                &nbsp;
-                                Educação &amp; Especialidade</p>
-                        </li>
-                        <li class="cafe-item" aria-labelledby="cafe-brula-nome">
-                            <h5 id="cafe-brula-nome" class="cafe-nome">Brúla — Café & Gastronomia</h5>
-                            <p class="cafe-bairro">Pinheiros · São Paulo</p>
-                            <p class="cafe-desc">O encontro entre café de excelência e culinária criativa. O chef
-                                trabalha
-                                com café não apenas na xícara, mas nos pratos — desde marinadas sutis até sobremesas
-                                ousadas.
-                                Um destino para quem procura harmonia entre especialidades.</p>
-                            <p class="cafe-nota" aria-label="Avaliação: 5 estrelas. Gastronomia e café">★★★★★ &nbsp;
-                                Gastronomia &amp; Café</p>
-                        </li>
-                        <li class="cafe-item" aria-labelledby="cafe-grao-origem-nome">
-                            <h5 id="cafe-grao-origem-nome" class="cafe-nome">Grão de Origem</h5>
-                            <p class="cafe-bairro">Jardins · São Paulo</p>
-                            <p class="cafe-desc">Importadora e cafeteria que trabalha diretamente com fazendas, trazendo
-                                cafés rastreáveis e com história. O espaço reflete essa transparência: mapas de origem,
-                                fichas
-                                de cupping expostas e uma comunidade fiel de apreciadores que retorna periodicamente.
-                            </p>
-                            <p class="cafe-nota" aria-label="Avaliação: 4 estrelas. Rastreabilidade e comunidade">★★★★☆
-                                &nbsp;
-                                Origem &amp; Comunidade</p>
-                        </li>
-                        <li class="cafe-item" aria-labelledby="cafe-kilo-nome">
-                            <h5 id="cafe-kilo-nome" class="cafe-nome">Café Kilo</h5>
-                            <p class="cafe-bairro">Vila Leopoldina · São Paulo</p>
-                            <p class="cafe-desc">Cafeteria industrial-chic com atmosfera descontraída e barista
-                                atencioso. O
-                                foco é na prática: máquinas visíveis, processo transparente e um menu que vai desde o
-                                espresso
-                                clássico até experimentações com bebidas à base de café. Perfeita para quem quer
-                                entender a
-                                técnica.</p>
-                            <p class="cafe-nota" aria-label="Avaliação: 4 estrelas. Técnica e descontração">★★★★☆ &nbsp;
-                                Técnica &amp; Estilo</p>
-                        </li>
-                    </ul>
-                </section>
-            </section>
+                </section>                            
             <div class="orn" aria-hidden="true" style="margin-top:1.5rem">— ✦ ✦ ✦ —</div>
         </div>
         <footer role="contentinfo">
