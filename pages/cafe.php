@@ -19,11 +19,6 @@
             padding: 0;
         }
 
-<<<<<<< HEAD:pages/cafe.php
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="../assets/css/cafe.css" />
-=======
         /* ─── TOKENS ─────────────────────────────────────────────── */
         :root {
             --paper: #f5f0e8;
@@ -782,7 +777,6 @@
             }
         }
     </style>
->>>>>>> 0da912b520da70fd6f34899386685b5745f6b094:pages/cafe.html
 </head>
 
 <body>
