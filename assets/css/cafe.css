@@ -769,110 +769,120 @@ body {
         color: CanvasText;
     }
 }
+
 /* ===========================
    ÁREA ADMINISTRATIVA
 ===========================*/
 
-.admin-section{
+.admin-section {
 
-    margin:70px 0;
+    margin: 1.2rem 0;
 
-    padding:40px 30px;
+    padding: 40px 30px;
 
-    border-top:3px double #8b6b3d;
+    border-top: 3px double var(--rule);
+   
+}
 
-    border-bottom:3px double #8b6b3d;
+.admin-title {
+
+    text-align: center;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 2rem;
+
+    margin-bottom: 10px;
+
+    color: #3d2b1f;
+}
+
+.admin-text {
+
+    text-align: center;
+
+    max-width: 700px;
+
+    margin: 0 auto 40px;
+
+    line-height: 1.8;
+
+    color: #5d4630;
+}
+
+.admin-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    text-decoration: none;
+
+    color: #3d2b1f;
+
+    padding: 22px 25px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #b99b6b;
+
+    background: #f7f2e7;
+
+    transition: .3s;
+}
+
+.admin-card:hover {
+
+    background: #efe5d2;
+
+    transform: translateX(8px);
 
 }
 
-.admin-title{
+.admin-left {
 
-    text-align:center;
+    display: flex;
 
-    font-family:"Playfair Display",serif;
+    gap: 20px;
 
-    font-size:2rem;
-
-    margin-bottom:10px;
-
-    color:#3d2b1f;
+    align-items: center;
 }
 
-.admin-text{
+.admin-icon {
 
-    text-align:center;
-
-    max-width:700px;
-
-    margin:0 auto 40px;
-
-    line-height:1.8;
-
-    color:#5d4630;
+    font-size: 40px;
 }
 
-.admin-card{
+.admin-card h3 {
 
-    display:flex;
+    margin: 0;
 
-    justify-content:space-between;
-
-    align-items:center;
-
-    text-decoration:none;
-
-    color:#3d2b1f;
-
-    padding:22px 25px;
-
-    margin-bottom:20px;
-
-    border:1px solid #b99b6b;
-
-    background:#f7f2e7;
-
-    transition:.3s;
+    font-family: "Playfair Display", serif;
 }
 
-.admin-card:hover{
+.admin-card p {
 
-    background:#efe5d2;
+    margin: 5px 0 0;
 
-    transform:translateX(8px);
-
+    color: #6b533d;
 }
 
-.admin-left{
+.admin-arrow {
 
-    display:flex;
+    font-size: 28px;
 
-    gap:20px;
-
-    align-items:center;
+    font-weight: bold;
 }
 
-.admin-icon{
-
-    font-size:40px;
+.cafe-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:.8rem 1.5rem;
 }
 
-.admin-card h3{
-
-    margin:0;
-
-    font-family:"Playfair Display",serif;
-}
-
-.admin-card p{
-
-    margin:5px 0 0;
-
-    color:#6b533d;
-}
-
-.admin-arrow{
-
-    font-size:28px;
-
-    font-weight:bold;
+.cafe-item{
+    border-top:1px solid var(--ink-light);
+    padding-top:.6rem;
 }
