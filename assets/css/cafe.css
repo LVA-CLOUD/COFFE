@@ -68,7 +68,7 @@
 
 /* ─── BASE ───────────────────────────────────────────────── */
 body {
-    background: #1e1508;
+    background: #ac8c5f;
     display: flex;
     justify-content: center;
     padding: 2rem 1rem;
@@ -262,7 +262,7 @@ body {
 
 /* ─── HISTÓRIA BANNER ────────────────────────────────────── */
 .historia-banner {
-    background: var(--ink);
+    background: #2C1810;
     color: var(--paper);
     padding: 1.5rem 2rem;
     margin: 0 -2rem;
@@ -279,7 +279,7 @@ body {
     font-family: var(--serif);
     font-size: clamp(4rem, 12vw, 8rem);
     font-weight: 900;
-    color: rgba(184, 134, 11, 0.12);
+    color: #b8860b1f;
     line-height: 1;
     pointer-events: none;
     aria-hidden: true;
@@ -768,4 +768,111 @@ body {
         background: Canvas;
         color: CanvasText;
     }
+}
+/* ===========================
+   ÁREA ADMINISTRATIVA
+===========================*/
+
+.admin-section{
+
+    margin:70px 0;
+
+    padding:40px 30px;
+
+    border-top:3px double #8b6b3d;
+
+    border-bottom:3px double #8b6b3d;
+
+}
+
+.admin-title{
+
+    text-align:center;
+
+    font-family:"Playfair Display",serif;
+
+    font-size:2rem;
+
+    margin-bottom:10px;
+
+    color:#3d2b1f;
+}
+
+.admin-text{
+
+    text-align:center;
+
+    max-width:700px;
+
+    margin:0 auto 40px;
+
+    line-height:1.8;
+
+    color:#5d4630;
+}
+
+.admin-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    color:#3d2b1f;
+
+    padding:22px 25px;
+
+    margin-bottom:20px;
+
+    border:1px solid #b99b6b;
+
+    background:#f7f2e7;
+
+    transition:.3s;
+}
+
+.admin-card:hover{
+
+    background:#efe5d2;
+
+    transform:translateX(8px);
+
+}
+
+.admin-left{
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:center;
+}
+
+.admin-icon{
+
+    font-size:40px;
+}
+
+.admin-card h3{
+
+    margin:0;
+
+    font-family:"Playfair Display",serif;
+}
+
+.admin-card p{
+
+    margin:5px 0 0;
+
+    color:#6b533d;
+}
+
+.admin-arrow{
+
+    font-size:28px;
+
+    font-weight:bold;
 }
